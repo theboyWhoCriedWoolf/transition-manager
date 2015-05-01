@@ -1,0 +1,32 @@
+{
+  "name": "transition-manager",
+  "version": "1.0.0",
+  "description": "Transition Manager. Transition elements depending using states and actions.",
+  "main": "index.js",
+  "scripts": {
+    "watch": "npm run server & fsmonitor -d ./src -s '+*.js' npm run build:dev",
+    "server": "browser-sync start --no-inject-changes --no-open --server 'bin' ",
+    "build:dev": "browserify -d -e ./src/test.js -t [ babelify --blacklist regenerator ] -o ./bin/transitionManager.js | browser-sync reload --files='*.js' ",
+    "build:prod": "uglifyjs  ./bin/transitionManager.js --compress --wrap --mangle -o ./bin/transitionManager.js"
+  },
+  "keywords": [
+    "transition",
+    "transition",
+    "manager",
+    "react",
+    "backbone",
+    "animate",
+    "views"
+  ],
+  "author": "tal.woolf",
+  "license": "mit",
+  "devDependencies": {
+    "babelify": "^6.0.2",
+    "browser-sync": "^2.6.4",
+    "browserify": "^9.0.8",
+    "es6-promise": "^2.1.0",
+    "fsmonitor": "^0.2.4",
+    "mout": "^0.11.0",
+    "signals": "^1.0.0"
+  }
+}

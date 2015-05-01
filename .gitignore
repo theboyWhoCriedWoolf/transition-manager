@@ -1,0 +1,20 @@
+
+dist
+./dist
+bin
+
+.DS_Store
+*.DS_Store
+Thumbs.db
+.*.sw[a-z]
+
+node_modules
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
