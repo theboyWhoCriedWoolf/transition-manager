@@ -4,15 +4,12 @@ import { errorSignal } from './dispatcher';
 
 export default (function() {
 	
-	
 	return {
 
-		id  		: 0,
 		/* toggle active state */
 		enabled 	: true,
 
-		initLogger( active, id ) {
-			this.id = id;
+		initLogger( active ) {
 			this.enabled =  active;
 		},
 

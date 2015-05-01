@@ -40,7 +40,7 @@ const indexKeys = [
  * ransition manager - Transition component facad wrapper
  * @type {Object}
  */
-var TransitionManager = mixin({}, Logger);
+var TransitionManager = mixin({ name : 'TransitionManager' }, Logger);
 
 
 (function()
@@ -60,6 +60,9 @@ var TransitionManager = mixin({}, Logger);
 
 		/* Transition Controller setup */
 		tc.init( mixin( pick( config, tcKeys ), config.tc ) );
+
+		TransitionManager.initLogger( config.debug );
+		TransitionManager.log( 'initiated' );
 		
 	}	
 
