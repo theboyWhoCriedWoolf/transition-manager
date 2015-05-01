@@ -1,32 +1,37 @@
 {
   "name": "transition-manager",
-  "version": "1.0.0",
-  "description": "Transition Manager. Transition elements depending using states and actions.",
+  "version": "0.0.1",
+  "description": "Transition Manager. Framework independent transition manager to transition elements using states and actions.",
   "main": "index.js",
   "scripts": {
+    "prepublish": "npm run compile",
+    "compile": "babel -d src/",
     "watch": "npm run server & fsmonitor -d ./src -s '+*.js' npm run build:dev",
     "server": "browser-sync start --no-inject-changes --no-open --server 'bin' ",
-    "build:dev": "browserify -d -e ./src/test.js -t [ babelify --blacklist regenerator ] -o ./bin/transitionManager.js | browser-sync reload --files='*.js' ",
-    "build:prod": "uglifyjs  ./bin/transitionManager.js --compress --wrap --mangle -o ./bin/transitionManager.js"
+    "test": "jshint esnext=true ./src/**/*.js",
+    "build:dev": "browserify -d -e ./src/test/test.js -t [ babelify --blacklist regenerator ] -o ./bin/transitionManager.js | browser-sync reload --files='*.js' ",
+    "build:prod": "npm run build:dev && uglifyjs  ./bin/transitionManager.js --compress --wrap --mangle -o ./bin/transitionManager.js"
   },
   "keywords": [
+    "fsm transitions",
+    "state machine",
     "transition",
-    "transition",
-    "manager",
-    "react",
-    "backbone",
-    "animate",
-    "views"
+    "transition manager",
+    "react transitions",
+    "backbone transitions",
+    "animate views",
+    "animate"
   ],
-  "author": "tal.woolf",
-  "license": "mit",
+  "author": "tal.woolf  <tal.woolf1.@gmail.com> (http://github.com/theboyWhoCriedWoolf)",
+  "license": "MIT",
+  "homepage": "",
   "devDependencies": {
     "babelify": "^6.0.2",
     "browser-sync": "^2.6.4",
     "browserify": "^9.0.8",
     "es6-promise": "^2.1.0",
     "fsmonitor": "^0.2.4",
-    "mout": "^0.11.0",
+    "jshint": "^2.7.0",
     "signals": "^1.0.0"
   }
 }

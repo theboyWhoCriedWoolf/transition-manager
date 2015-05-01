@@ -24,14 +24,11 @@ const TransitionController = mixin({ name : 'TransitionController' } , logger);
 
 (function()
 {	
-	let _tranistionComplete 			= true,
-		_transitionQueue 				= [],
+	let _tranistionComplete = null,
 
 		_options = { // default options
-			qTransitions 		: true,
-			debug 	 			: true,
-			transitions 		: null,
-			limitq 				: true
+			debug 	 			: false,
+			transitions 		: null
 		};
 
 	/**
@@ -58,7 +55,7 @@ const TransitionController = mixin({ name : 'TransitionController' } , logger);
 			deferred.promise.then( () => {
 				transitionComplete.dispatch( transitionObj );
 				TransitionController.log( transitionObj.transitionType +' -- completed');
-			})
+			});
 
 			if( transitionModule.initialize ){
 				transitionModule.initialize( views, transitionObj.data, deferred, currentViewRef, nextViewRef );
@@ -79,7 +76,7 @@ const TransitionController = mixin({ name : 'TransitionController' } , logger);
 	function _prepareAndStart( transitions )
 	{
 		const 	initialTransiion 	= transitions.shift(0),
-				transitionsLength 	= transitions.length
+				transitionsLength 	= transitions.length;
 		
 		let 	deferredTransitions = [],
 				i 					= 0,
@@ -98,37 +95,14 @@ const TransitionController = mixin({ name : 'TransitionController' } , logger);
 
 		// listen for completed modules
 		all( deferredTransitions ).then( () => {
-			
-			_processTransitionQueue();
-			_tranistionComplete = true; // allow the queue to be processes
+			TransitionController.log('transition queue empty ---- all transitions completed');
+
+			_tranistionComplete();
+			allTransitionCompleted.dispatch();
 
 		}, TransitionController.error );
 
 	}
-
-	/**
-	 * process transitions queue if any 
-	 * loop through and clear backlog one by one
-	 * 
-	 * @return {boolean} 
-	 */
-	function _processTransitionQueue()
-	{
-		if( _transitionQueue.length > 0 ) {
-			let nextTransition = _transitionQueue.shift();
-
-			if( nextTransition ) {
-				console.log('processing next queue transition ::: ', nextTransition );
-
-				TransitionController.processTransition( nextTransition );
-			}
-			return false;
-		}
-
-		allTransitionCompleted.dispatch();
-		TransitionController.log('transition queue empty ---- all transitions completed');
-	};
-
 
 	/**
 	 * remove a module by name from the dictionary 
@@ -187,20 +161,10 @@ const TransitionController = mixin({ name : 'TransitionController' } , logger);
 	 */
 	TransitionController.processTransition = function( transitions )
 	{
-		if(!_tranistionComplete && _options.qTransitions ) { // if busy add to queue
-			TransitionController.log('Transition in progress queue up next transition');
-			
-			if( _options.limitq ) { _transitionQueue[0] = transitions; }
-			else { _transitionQueue.push( transitions ); }
-			
-			return false;
-		};
-
 		allTransitionsStarted.dispatch( transitions );
-		_tranistionComplete = false;
 
 		// prepare and start the transitions
-		TransitionController.log('-- start transitioning views --')
+		TransitionController.log('-- start transitioning views --');
 		_prepareAndStart( transitions );
 	};
 
@@ -216,7 +180,12 @@ const TransitionController = mixin({ name : 'TransitionController' } , logger);
 
 		TransitionController.initLogger( _options.debug );
 		TransitionController.log('initiated');
-	}
+	};
+
+	/**
+	 * link external methid to change the transition completedx state
+	 */
+	Object.defineProperty(TransitionController, 'transitionCompleted', { set( method ) { _tranistionComplete = method; }  });
 
 
 

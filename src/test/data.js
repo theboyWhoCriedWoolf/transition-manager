@@ -70,14 +70,14 @@ module.exports = {
 			'ACTION_HOME' : {
 				target 			: 'STATE_HOME',
 				transitionType	: 'SlideInOut',
-				// views 			: [ 'homeView' ]
+				views 			: [ 'homeView',  'logoView' ]
 				
-				transitions : [
-					{
-						transitionType  : 'LogoSlide',
-						views 			: [ 'logoView' ]
-					}
-				]
+				// transitions : [
+				// 	{
+				// 		transitionType  : 'LogoSlide',
+				// 		views 			: [ 'logoView' ]
+				// 	}
+				// ]
 			},
 
 			'ACTION_CONTACT' : {

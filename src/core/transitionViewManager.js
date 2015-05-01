@@ -14,13 +14,13 @@ const TVM = mixin({ name : 'TransitionViewManager' }, logger );
 (function(){
 
 	let _viewsReadyMethod = null,
-	viewCache 		      = {},
+		viewCache 		  = {},
 
 	// options with defaults
 	_options 				= {
 		config  			: null,
 		viewManager 		: null,
-		debug 				: true,
+		debug 				: false,
 		useCache 			: true
 	};
 
@@ -155,8 +155,8 @@ const TVM = mixin({ name : 'TransitionViewManager' }, logger );
 		 	nextViewID 		: actionData.nextView, 	  // optional
 		 	views 			: {},
 		 	transitionType  : transitionObject.transitionType
-	 	}
-	};
+	 	};
+	}
 
 	/**
 	 * processViews - start preparing the views
@@ -179,16 +179,16 @@ const TVM = mixin({ name : 'TransitionViewManager' }, logger );
 		const actionData  = _options.config[ actionID ];
 		if( actionData ) {
 
-			let processedAction 	= _prepareViews( actionData, data ),
-				parsedActionData 	= processedAction.preparedViews,
-				pendingPromises 	= processedAction.promises;
+			let processedAction 	  = _prepareViews( actionData, data ),
+				parsedActionData 	  = processedAction.preparedViews,
+				pendingPromises 	  = processedAction.promises;
 
-				viewCache[ actionID ] 	= parsedActionData;
+				viewCache[ actionID ] = parsedActionData.slice(0);
 
 			// parse the views and wait for them to finish preparing themselves
 			all( pendingPromises ).then( () => { 
 				TVM.log('Views loaded and ready for ----- '+actionID);
-				
+
 				//* views are ready, dispatch them *//
 				_viewsReadyMethod( parsedActionData );
 
@@ -208,7 +208,6 @@ const TVM = mixin({ name : 'TransitionViewManager' }, logger );
 	{	
 		defaultProps( _options, options );
 		TVM.initLogger( _options.debug );
-
 		TVM.log('initiated');
 	};
 
@@ -218,8 +217,9 @@ const TVM = mixin({ name : 'TransitionViewManager' }, logger );
 	 * all its components
 	 */
 	TVM.dispose = function() {
-		_options = {};
-	}
+		_options  = null;
+		viewCache = null;
+	};
 
 	/**
 	 * link external methid to local

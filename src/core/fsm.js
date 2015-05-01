@@ -19,9 +19,11 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 			_stateChangedHandler    = null,
 
 			_options = {
-				qHistory : true,
-				debug 	 : true
-			}
+				history 		: false,
+				limitq 	 		: true,
+				qtransitions	: true,
+				debug 	 		: false
+			};
 
 
 	/**
@@ -56,20 +58,18 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 
 		if( _currentState ) {
 			let previousState = _currentState;
-			if(_options.qHistory){ _history.push(previousState.name); }
+			if(_options.history){ _history.push(previousState.name); }
 		}
 		
 		_currentState = nextState;
 
 		if( action ) {
 			_stateChangedHandler( action, data ); 
+		} else {
+			_transitionCompleted = true;
+			FSM.log('State transition Completed! Current State :: ' + _currentState.name );
+			stateChanged.dispatch(_currentState);
 		}
-
-		_transitionCompleted = true;
-		FSM.log('State transition Completed! Current State :: ' + _currentState.name );
-		stateChanged.dispatch(_currentState,  data);
-
-		_processActionQueue();
 	}
 
 	/**
@@ -87,25 +87,24 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 			} 
 			else {
 			}	FSM.action( stateEvent.action, stateEvent.data );
+
+			return false;
 		}
-		return this;
+
+		FSM.log('State transition Completed! Current State :: ' + _currentState.name );
+		stateChanged.dispatch(_currentState);
 	}
 
 	/**
 	 * start FSM 
 	 * set the initial state
 	 */
-	FSM.start = function()
+	FSM.start = function(  )
 	{
-		
-
-		FSM.initLogger( _options.debug );
-		FSM.log('initiated');
-
-		if(!_initial) { return FSM.log('ERROR - FSM must have an initial state set'); };
+		if(!_initial) { return FSM.log('ERROR - FSM must have an initial state set'); }
 		_transitionTo( _initial, null );
 		return this;
-	}
+	};
 
 	/**
 	 * DO ACTION
@@ -119,11 +118,19 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 		if( !_currentState ){ return FSM.log( 'ERROR : You may need to start the fsm first' ); }
 		
 		/* if transitioning, queue up next action */
-		if(!_transitionCompleted) { 
-			_actionQueue.push( {
-				action  : action,
-				data 	: data
-			});
+		if(!_transitionCompleted && _options.qtransitions) { 
+			FSM.log('transition in progress, adding action *'+action+' to queue');
+
+			/* store the action data */
+			let actionStore = { action : action, data : data };
+
+			if( _options.limitq ) {
+				_actionQueue[0] = actionStore;
+			} 
+			else {
+				_actionQueue[_actionQueue.length] = actionStore;
+			}
+			return false;
 		}
 
 		const 	target 		= _currentState.getTarget( action ),
@@ -138,12 +145,22 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 		else {
 			FSM.error( 'State name ::: ' + _currentState.name + ' OR Action: ' + action + ' is not available' );
 		}
-	}
+	};
 
 	/**
 	 * cancel the current transition
 	 */
-	FSM.cancel 	 = function() { _cancelled = true; return this; }
+	FSM.cancel 	 = function() { _cancelled = true; return this; };
+
+
+	/**
+	 * transition completed
+	 * called externally once all processes have completed
+	 */
+	FSM.transitionComplete = function() {
+		_transitionCompleted = true;
+		_processActionQueue();
+	};
 
 	/**
 	 * add a new state to the FSM
@@ -157,9 +174,9 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 		}
 		
 		_states[ state.name ] = state;
-		if( isInitial ) { _initial = state; };
+		if( isInitial ) { _initial = state; }
 		return state;
-	}
+	};
 
 	/**
 	 * initialise - pass in setup options
@@ -168,8 +185,9 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 	FSM.init = function( options )
 	{
 		defaultProps( _options, options );
+		FSM.initLogger( _options.debug );
 		FSM.log('initiated');
-	}
+	};
 
 	/**
 	 * create states and transitions based on config data passed in
@@ -192,20 +210,20 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 		});	
 
 		FSM.addState( state, initial );
-	}
+	};
 	
 	/**
 	 * return the current state
 	 * @return {object} FSM state
 	 */
-	FSM.getCurrentState = function() { return _currentState; }
+	FSM.getCurrentState = function() { return _currentState; };
 
 	/**
 	 * dispose the state machin 
 	 */
 	FSM.dispose = function() {
 		_states = null;
-	}
+	};
 	
 	/* sets a statesChanged method instead of using a signal */
 	Object.defineProperty( FSM, 'stateChangedMethod', { set: function( method ) { _stateChangedHandler = method; } });
@@ -223,7 +241,7 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 		this._name 			= name; // name              	      	
 		this._data 			= {};   // data to assosciate with the action
 		this._initial  		= initial;
-	}
+	};
 
 	FSM.State.prototype = {
 
@@ -246,7 +264,7 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 
 		getActionId : function( action ) { return this._fetchTransition( action, '_id' ); },
 		getTarget   : function( action ) { return this._fetchTransition( action, 'target' ); }
-	}
+	};
 
 	/**
 	 * create getters for the state 
@@ -260,7 +278,7 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 	Object.defineProperty(FSM.State.prototype, 'initial', 		{ get: function() { return this._initial; } });
 	Object.defineProperty(FSM.State.prototype, 'id', 			{ get: function() { return this.getActionId; } });
 
-})()
+})();
 
 export default FSM;
 

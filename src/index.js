@@ -1,6 +1,7 @@
 import fsm 			from './core/fsm';
 import tvm 			from './core/transitionViewManager';
 import tc 			from './core/transitionController';
+import defaultVm 	from './core/defaultViewManager';
 import parser 		from './parsers/dataParser';
 import Logger 		from './common/logger';
 
@@ -12,7 +13,9 @@ import dispatcher 	from './common/dispatcher';
 
 /* fsm config pluck keys */
 const fsmKeys = [
-	'qHistory',
+	'history',
+	'limitq',
+	'qtransitions',
 	'debug'
 ];
 /* tvm config pluck keys */
@@ -24,15 +27,14 @@ const tvmKeys = [
 ];
 /* tc config pluck keys */
 const tcKeys = [
-	'qtransitions',
 	'transitions',
-	'limitq',
 	'debug'
 ];
 /* this config pluck keys */
 const indexKeys = [
-	'data',
-	'debug'
+	'debug',
+	'views',
+	'viewManager'
 ]
 
 
@@ -55,13 +57,19 @@ var TransitionManager = mixin({ name : 'TransitionManager' }, Logger);
 		fsm.create( parsedData.fsmConfig );
 
 		/* Transition View Manager setup */
-		let tvmConfig =  mixin( { config : parsedData.TVMConfig }, pick( config, tvmKeys ), config.tvm );
+		config.viewManager 	= config.viewManager || defaultVm.init( pick( config, indexKeys ) );
+		let tvmConfig 		=  mixin( { config : parsedData.TVMConfig }, pick( config, tvmKeys ), config.tvm );
 		tvm.create( tvmConfig );
 
 		/* Transition Controller setup */
 		tc.init( mixin( pick( config, tcKeys ), config.tc ) );
 
-		TransitionManager.initLogger( config.debug );
+		/*** Connect each module ***/
+		fsm.stateChangedMethod  = tvm.processViews;
+		tvm.viewsReady 			= tc.processTransition;
+		tc.transitionCompleted  = fsm.transitionComplete;
+
+		TransitionManager.initLogger( true );
 		TransitionManager.log( 'initiated' );
 		
 	}	
@@ -98,8 +106,6 @@ var TransitionManager = mixin({ name : 'TransitionManager' }, Logger);
 	 Object.defineProperty( TransitionManager, 'onAllTransitionStarted', { get : function() { return dispatcher.transitionsStarted; } });
 	 Object.defineProperty( TransitionManager, 'onAllTransitionCompleted', { get : function() { return dispatcher.allTransitionCompleted; } });
 	 Object.defineProperty( TransitionManager, 'transitionComplete', { get : function() { return dispatcher.transitionComplete; } });
-
-	
 
 
 })()

@@ -1,7 +1,7 @@
  var _hasDontEnumBug,
         _dontEnums;
 
-    function checkDontEnum(){
+    function checkDontEnum() {
         _dontEnums = [
                 'toString',
                 'toLocaleString',
@@ -17,7 +17,7 @@
         for (var key in {'toString': null}) {
             _hasDontEnumBug = false;
         }
-    }
+    };
 
     /**
      * Similar to Array/forEach but works over object properties and fixes Don't
@@ -30,7 +30,7 @@
         // it for arrays, functions, date, etc.
 
         //post-pone check till needed
-        if (_hasDontEnumBug == null) checkDontEnum();
+        if (_hasDontEnumBug == null) { checkDontEnum(); }
 
         for (key in obj) {
             if (exec(fn, obj, key, thisObj) === false) {
@@ -47,7 +47,7 @@
                         break;
                     }
                 }
-            }
+            };
         }
     }
 

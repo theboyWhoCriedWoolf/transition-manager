@@ -75,7 +75,7 @@ var AppDataParser = {};
 		prop.views = unique( prop.views, [ stateView, nextView ] );
 		groupedTransitions.unshift( { transitionType : prop.transitionType, views : prop.views } );
 		return groupedTransitions;
-	};
+	}
 
 
 	/**
@@ -86,7 +86,7 @@ var AppDataParser = {};
 	 */
 	AppDataParser.parseData = function( data )
 	{
-		if( !data ){ throw new Error('*Data Object is undefined!'); return false; };
+		if( !data ){ throw new Error('*Data Object is undefined!'); return false; }
 
 		let config 		= [],
 			viewData	= {},
@@ -113,7 +113,7 @@ var AppDataParser = {};
 		});
 
 		return { fsmConfig : config, TVMConfig : extracted.viewData };
-	}
+	};
 
 })();
 

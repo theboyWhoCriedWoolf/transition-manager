@@ -1,5 +1,5 @@
 
-import Promise from 'es6-promise';
+import {Promise} from 'es6-promise';
 
 /**
  * Promise facad object
@@ -17,7 +17,7 @@ let PromiseFacade = {};
 export function Deferred()
 {
 	let result = {};
-	result.promise = new PromiseFacade.Promise(( resolve, reject ) =>
+	result.promise = new Promise(( resolve, reject ) =>
 	{
 		result.resolve = resolve;
 		result.reject  = reject;
@@ -36,18 +36,18 @@ export function all() {
 
 	let externalError,
 		error = (e) => { 
-			console.error( ' --- PROMISE CAUGHT ERROR --- ', arguments[0].stack ); 
-			if(externalError){ externalError('es6-promise all error ', arguments[0].stack); }
-		}
+			console.error( ' --- PROMISE CAUGHT ERROR --- ', arguments[0].stack, e ); 
+			if(externalError){ externalError('es6-promise all error ', arguments[0].stack, e); };
+		};
 		
 	return () => {
 		let all = Promise.all( arguments[0] );
 		return {
 			then () {
-				externalError =  arguments[1]
+				externalError =  arguments[1];
 				all.then(arguments[0]).catch( error );
 			}
-		}
+		};
 	}(arguments);
 }
 
