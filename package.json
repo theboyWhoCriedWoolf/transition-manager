@@ -1,37 +1,55 @@
 {
   "name": "transition-manager",
-  "version": "0.0.1",
+  "version": "0.0.10",
   "description": "Transition Manager. Framework independent transition manager to transition elements using states and actions.",
-  "main": "index.js",
+  "main": "./lib/index.js",
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/talwoolf/transition-manager.git"
+  },
+
   "scripts": {
     "prepublish": "npm run compile",
-    "compile": "babel -d src/",
-    "watch": "npm run server & fsmonitor -d ./src -s '+*.js' npm run build:dev",
+    "compile": "babel --ignore [regex] --blacklist regenerator -d lib/ src/",
     "server": "browser-sync start --no-inject-changes --no-open --server 'bin' ",
+    "watch": "npm run server & fsmonitor -s '+*.js' !node_modules !lib/** !bin/** npm run build:all",
+    "build:all": "npm run build & npm run build:dev",
     "test": "jshint esnext=true ./src/**/*.js",
-    "build:dev": "browserify -d -e ./src/test/test.js -t [ babelify --blacklist regenerator ] -o ./bin/transitionManager.js | browser-sync reload --files='*.js' ",
-    "build:prod": "npm run build:dev && uglifyjs  ./bin/transitionManager.js --compress --wrap --mangle -o ./bin/transitionManager.js"
+    "build:dev": "browserify -d -e ./test/test.js -t [ babelify --blacklist regenerator ] -t reactify  -o ./bin/test.js | browser-sync reload --files='*.js' ",
+    "build": "browserify -d -e ./src/index.js -t [ babelify --blacklist regenerator ] -o ./bin/transitionManager.js",
+    "build:prod": "npm run build && uglifyjs ./bin/transitionManager.js -o ./bin/transitionManager.js"
   },
   "keywords": [
-    "fsm transitions",
-    "state machine",
+    "fsm-transitions",
+    "state-machine-animation",
     "transition",
-    "transition manager",
-    "react transitions",
-    "backbone transitions",
-    "animate views",
+    "transition-manager",
+    "react-transitions",
+    "backbone-transitions",
+    "backbone-view-transitions",
     "animate"
+  ],
+  "tags": [
+    "transitions",
+    "animation"
   ],
   "author": "tal.woolf  <tal.woolf1.@gmail.com> (http://github.com/theboyWhoCriedWoolf)",
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/talwoolf/transition-manager/README.md",
+  "bugs": "https://github.com/talwoolf/transition-manager/issues",
+
+  "dependencies": {
+    "signals": "^1.0.0",
+    "es6-promise": "^2.1.0"
+  },
   "devDependencies": {
+    "babel": "^5.2.6",
     "babelify": "^6.0.2",
     "browser-sync": "^2.6.4",
-    "browserify": "^9.0.8",
-    "es6-promise": "^2.1.0",
+    "browserify": "^10.1.0",
     "fsmonitor": "^0.2.4",
     "jshint": "^2.7.0",
-    "signals": "^1.0.0"
+    "reactify": "^1.1.0",
+    "uglifyjs": "^2.4.10"
   }
 }

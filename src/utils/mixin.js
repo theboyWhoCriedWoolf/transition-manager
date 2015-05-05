@@ -1,4 +1,5 @@
-var forOwn = require('./forOwn');
+
+import forOwn from './forOwn';
 
 function mixin( target, objects ) {
 	var i = 0,

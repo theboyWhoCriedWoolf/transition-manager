@@ -154,7 +154,6 @@ const TransitionController = mixin({ name : 'TransitionController' } , logger);
 	};
 
 
-
 	/**
 	 * start processing the requested transition
 	 * @param  {array/object} - transition objects or array of ytransition objects

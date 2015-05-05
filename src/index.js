@@ -10,7 +10,6 @@ import pick		  	from './utils/pick';
 import dispatcher 	from './common/dispatcher';
 
 
-
 /* fsm config pluck keys */
 const fsmKeys = [
 	'history',
@@ -42,16 +41,17 @@ const indexKeys = [
  * ransition manager - Transition component facad wrapper
  * @type {Object}
  */
-var TransitionManager = mixin({ name : 'TransitionManager' }, Logger);
-
+var TransitionManager = {};
 
 (function()
-{
+{	
+	/* private Logger */
+	const Log = mixin({ name : 'TransitionManager' }, Logger );
 
 	TransitionManager.init = function( config )
 	{
 		let parsedData = parser.parseData(config.data);
-			
+
 		/* FSM setup */
 		fsm.init( mixin( pick( config, fsmKeys ), config.fsm ) );
 		fsm.create( parsedData.fsmConfig );
@@ -69,15 +69,18 @@ var TransitionManager = mixin({ name : 'TransitionManager' }, Logger);
 		tvm.viewsReady 			= tc.processTransition;
 		tc.transitionCompleted  = fsm.transitionComplete;
 
-		TransitionManager.initLogger( true );
-		TransitionManager.log( 'initiated' );
+		Log.initLogger( config.debug );
+		Log.log( 'initiated' );
 		
 	}	
 
+	/**
+	 * start the transition-manager
+	 * transitions to the initial state
+	 */
 	TransitionManager.start = function() {
 		fsm.start();
 	}
-
 
 	/**
 	 * 	Getters for the Transition Manager Components
@@ -86,6 +89,7 @@ var TransitionManager = mixin({ name : 'TransitionManager' }, Logger);
 	 *  - cancel - cancel fsm transition
 	 *  - addTransition - add a transition component
 	 *  - removeTransition - remove transition
+	 *  - history - action history
 	 */
 
 	Object.defineProperty( TransitionManager, 'action', { get : function() { return fsm.action; } });
@@ -93,6 +97,7 @@ var TransitionManager = mixin({ name : 'TransitionManager' }, Logger);
 	Object.defineProperty( TransitionManager, 'cancel', { get : function() { return fsm.cancel; } });
 	Object.defineProperty( TransitionManager, 'addTransition', { get : function() { return tc.addModule; } });
 	Object.defineProperty( TransitionManager, 'removeTransition', { get : function() { return tc.removeModule; } });
+	Object.defineProperty( TransitionManager, 'getHistory', { get : function() { return fsm.getHistory; } });
 	
 	 
 	 /**
@@ -107,7 +112,7 @@ var TransitionManager = mixin({ name : 'TransitionManager' }, Logger);
 	 Object.defineProperty( TransitionManager, 'onAllTransitionCompleted', { get : function() { return dispatcher.allTransitionCompleted; } });
 	 Object.defineProperty( TransitionManager, 'transitionComplete', { get : function() { return dispatcher.transitionComplete; } });
 
-
-})()
+})();
 
 export default TransitionManager;
+module.exports = { 'boom' : 'test' };

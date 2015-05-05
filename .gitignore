@@ -2,6 +2,7 @@
 dist
 ./dist
 bin
+lib
 
 .DS_Store
 *.DS_Store

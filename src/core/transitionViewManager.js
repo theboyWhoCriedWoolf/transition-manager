@@ -21,7 +21,7 @@ const TVM = mixin({ name : 'TransitionViewManager' }, logger );
 		config  			: null,
 		viewManager 		: null,
 		debug 				: false,
-		useCache 			: true
+		useCache 			: false
 	};
 
 	/**
@@ -34,8 +34,8 @@ const TVM = mixin({ name : 'TransitionViewManager' }, logger );
 	 */
 	function _prepareViews( actionData, paramData )
 	{
-		let linkedViewsModules 	= actionData.linkedViewsModules, // look into slice speed over creating new array
-		 	ViewsModuleLength 	= linkedViewsModules.length,
+		let linkedTranssModules = actionData.linkedVTransModules, // look into slice speed over creating new array
+		 	ViewsModuleLength 	= linkedTranssModules.length,
 		 	promises 			= [],
 		 	preparedViews 		= [],
 		 	actionDataClone 	= null,
@@ -44,8 +44,7 @@ const TVM = mixin({ name : 'TransitionViewManager' }, logger );
 		 	viewsModuleObject;
 
 	 		while( i < ViewsModuleLength ) {
-
- 				viewsModuleObject 					  = linkedViewsModules[i];
+ 				viewsModuleObject 					  = linkedTranssModules[i];
 	 			actionDataClone 					  = _cloneViewState( actionData, viewsModuleObject, paramData ); 
 	 			preparedViews[ preparedViews.length ] = _fetchViews( viewsModuleObject.views, actionDataClone, promises, viewCache);
 	 			
@@ -79,11 +78,13 @@ const TVM = mixin({ name : 'TransitionViewManager' }, logger );
 			_deferred,
 			view,
 			foundView,
+			parsedRef,
 			viewRef;
 
 		while( i < length )
 		{
 			viewRef = views[ i ];
+
 			if(viewRef)
 			{
 				foundView = viewCache[ viewRef ];
@@ -94,11 +95,19 @@ const TVM = mixin({ name : 'TransitionViewManager' }, logger );
 					promises[ promises.length ] = _deferred.promise;
 
 					if( !foundView ){ return TVM.error( viewRef+' is undefined' ); }
-					foundView.viewReady( _deferred );
+
+					if( foundView.prepareView ){ foundView.prepareView( _deferred ); }
+					else { _deferred.resolve(); }
 				}
 
 				view = foundView;
-				actionDataClone.views[ _viewRef(viewRef, [ currentViewID, nextViewID ]) ] = view;
+
+				/* change ref to current view or next view to allow general transitions */
+				parsedRef = _viewRef(viewRef, [ currentViewID, nextViewID ]);
+				if( parsedRef ) {
+					actionDataClone.views[ parsedRef ] = view;
+				}
+				actionDataClone.views[ viewRef ] = view;
 			}
 
 			++i;
@@ -118,7 +127,7 @@ const TVM = mixin({ name : 'TransitionViewManager' }, logger );
 	 */
 	function _viewRef( ref, comparisonViews ) {
 	 	var index = comparisonViews.indexOf( ref );
-	 		return (index === -1 )? ref : ['currentView', 'nextView'][ index ];
+	 		return (index === -1 )? null : ['currentView', 'nextView'][ index ];
 	}
 
 

@@ -1,7 +1,8 @@
 
-import { errorSignal } from './dispatcher';
-
-
+/**
+ * Logger Class
+ * @return {object} Logger
+ */
 export default (function() {
 	
 	return {

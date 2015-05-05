@@ -19,9 +19,8 @@ function unique( target, arrays )
 
 		while(++i < len) {
 			ObjRef = combined[ i ];
-			
-			if( target.indexOf( ObjRef ) === -1 && ObjRef !== '' ) {
-				target[ target.i ] = ObjRef;
+			if( target.indexOf( ObjRef ) === -1 && ObjRef !== '' & ObjRef !==  (null || undefined) ) {
+				target[ target.length ] = ObjRef;
 			}
 		}
 		return target;

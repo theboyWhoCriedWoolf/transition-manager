@@ -107,6 +107,14 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 	};
 
 	/**
+	 * return the action history
+	 * @return {aray} 
+	 */
+	FSM.getHistory = function() {
+		return _history;
+	}
+
+	/**
 	 * DO ACTION
 	 * do action and change the current state if
 	 * the action is available and allowed
@@ -150,7 +158,7 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 	/**
 	 * cancel the current transition
 	 */
-	FSM.cancel 	 = function() { _cancelled = true; return this; };
+	FSM.cancel = function() { _cancelled = true; };
 
 
 	/**

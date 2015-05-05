@@ -1,5 +1,5 @@
-var hasOwn = require('./hasOwn');
-var forIn = require('./forIn');
+import hasOwn from './hasOwn';
+import forIn from './forIn';
 
     /**
      * Similar to Array/forEach but works over object properties and fixes Don't

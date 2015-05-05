@@ -2,11 +2,10 @@ import forein from '../utils/forIn';
 import unique from '../utils/unique';
 
 
-var AppDataParser = {};
+const AppDataParser = {};
 
 (function()
-{
-
+{	
 	/**
 	 * extract the actual transition data for the state
 	 * @param  {object} configState - state data
@@ -43,7 +42,7 @@ var AppDataParser = {};
 			viewData[ statePrefix ] = {
 				currentView 		: stateView,
 				nextView 			: appDataView,
-				linkedViewsModules 	: _extractTransitions( prop, stateView, appDataView ),
+				linkedVTransModules : _extractTransitions( prop, stateView, appDataView ),
 				name  				: actionName
 			};
 
@@ -71,7 +70,6 @@ var AppDataParser = {};
 		 		return transitionObject; 
 		 	});
 		}
-		 
 		prop.views = unique( prop.views, [ stateView, nextView ] );
 		groupedTransitions.unshift( { transitionType : prop.transitionType, views : prop.views } );
 		return groupedTransitions;
@@ -116,7 +114,6 @@ var AppDataParser = {};
 	};
 
 })();
-
 
 export default AppDataParser;
 
