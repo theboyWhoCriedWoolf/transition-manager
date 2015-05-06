@@ -1,5 +1,7 @@
 # Transition Manager
 
+[![build status](https://secure.travis-ci.org/theboyWhoCriedWoolf/transition-manager.png)](http://travis-ci.org/theboyWhoCriedWoolf/transition-manager)
+
 **Transition-Manager** to easily transition visual elements within your application based on your application state.
 
 It is completely framework independant, giving you the ability to implement it in your application regardless the framework or tools you are using within your application.
