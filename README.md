@@ -1,12 +1,12 @@
 # Transition Manager
 
-**Transition-Manager** is a component that helps you easily transition visual elements within your application based on your application state.
+**Transition-Manager** to easily transition visual elements within your application based on your application state.
 
-It is completely framework independant, giving you the freedom to use it regardless the framework or tools you are using within your application.
+It is completely framework independant, giving you the ability to implement it in your application regardless the framework or tools you are using within your application.
 
-At its core, the library uses a simple state machine to dictate its transitions. When a State change is fired, the TM checks for a valid transition, fetches and prepares the associated views, then injects the views into the correct transition module.
+At its core, the library uses a simple state machine to dictate its transitions. When a State changes, the Transition-Manager checks for a valid transition, fetches and prepares the associated views, then assigns them to the correct transition, providing everything you need to animate to the next state.
 
-See more in the [overview guide](/docs/overview.md).
+See more in the [overview guide](https://github.com/theboyWhoCriedWoolf/transition-manager/blob/master/docs/overview.md).
 
 ### Installation
 
@@ -21,74 +21,16 @@ npm install transition-manager --save-dev
 ```js
 // basic config.js - can also be .json
 export default {
-    /* 
-        the initial state can not have a transition, 
-        so in order to transition the first view in, 
-        you supply an initial state with no view passing in initialActions. 
-        This will transition into the homeView. 
-    */
-    'STATE_INITIAL' : {
-        /* must be included to indicate the initial transition */
-        initial         : true,
-        /* Actions specify the available transitions from this state */
-        actions : { 
-            'action_init_home' : { // can transition to home
-                /* specify the transition type to use for the animation */
-                transitionType  : 'fooTransition',
-                /* specify the target - where you want to end up */
-                target          : 'STATE_HOME'
-            },
-            'action_init_about' : { // can transition to about
-                transitionType  : 'fooTransition',
-                target          : 'STATE_ABOUT'
-            },
-            'action_init_contact' : { // can transition to contact
-                transitionType  : 'fooTransition',
-                target          : 'STATE_CONTACT'
-            }
-        }
-    }, // end initial state
-
     'STATE_HOME' : {
         view  : 'homeView',
         actions : {
             'action_go_about' : {
                 transitionType  : 'barTransition',
                 target          : 'STATE_ABOUT',
-                /* 
-                    views can be used to include any extra views that you need
-                    to access for this transition, by default, the 
-                    transition-manager will include the current state view
-                    and the target view.
-                */
+                /* associated views */
                 views           : [ 'fooView', 'barView' ],
-
-                /* ******* optional *********
-                    you are able to add an array of additional transitions
-                    containing the transition type and the associated views.
-                    By default they will still have the current 
-                    view and the next view available.
-                */
-                transitions : [ // to be instantiated with this transition
-                    {
-                        transitionType  : 'barSpinTransition',
-                        views           : [ 'fooOneView', 'barOneView' ]
-                    },
-                    {
-                        transitionType  : 'fooTwirlTransition',
-                        views           : [ 'fooOneView' ]
-                    }
-                ]
-
             },
-            'action_go_Contact' : {
-                transitionType  : 'barTransition',
-                target          : 'STATE_CONTACT',
-                /* 
-                if 'views:[]' is not specified, so the transition manager
-                will inject  homeView and contactView into the config 
-                */
-            }
+            // 'action_go_Contact' : { }
         }
     }, // end state home
     /* 

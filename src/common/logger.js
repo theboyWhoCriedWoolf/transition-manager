@@ -29,7 +29,7 @@ export default (function() {
 				console.error(':::: '+ this.name +' :::: ***** ERROR ***** - [ ' + msg + ' ] ');
 			}
 		}
-	}
+	};
 
 })();
 

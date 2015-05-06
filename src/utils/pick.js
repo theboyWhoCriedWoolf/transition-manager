@@ -1,3 +1,6 @@
+ /*jshint -W084 */
+  /*jshint unused:false*/
+  
 var slice = require('./slice');
 
     /**

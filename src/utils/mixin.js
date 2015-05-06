@@ -1,5 +1,6 @@
-
+ /*jshint unused:false*/
 import forOwn from './forOwn';
+
 
 function mixin( target, objects ) {
 	var i = 0,

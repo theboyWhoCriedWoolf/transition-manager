@@ -1,3 +1,6 @@
+ /*jshint -W084 */
+ /*jshint unused:false*/
+
  var _hasDontEnumBug,
         _dontEnums;
 
@@ -17,7 +20,7 @@
         for (var key in {'toString': null}) {
             _hasDontEnumBug = false;
         }
-    };
+    }
 
     /**
      * Similar to Array/forEach but works over object properties and fixes Don't
@@ -47,7 +50,7 @@
                         break;
                     }
                 }
-            };
+            }
         }
     }
 

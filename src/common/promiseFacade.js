@@ -37,7 +37,7 @@ export function all() {
 	let externalError,
 		error = (e) => { 
 			console.error( ' --- PROMISE CAUGHT ERROR --- ', arguments[0].stack, e ); 
-			if(externalError){ externalError('es6-promise all error ', arguments[0].stack, e); };
+			if(externalError){ externalError('es6-promise all error ', arguments[0].stack, e); }
 		};
 		
 	return () => {

@@ -1,11 +1,11 @@
 {
   "name": "transition-manager",
-  "version": "0.0.10",
+  "version": "0.0.12",
   "description": "Transition Manager. Framework independent transition manager to transition elements using states and actions.",
   "main": "./lib/index.js",
    "repository": {
     "type": "git",
-    "url": "https://github.com/talwoolf/transition-manager.git"
+    "url": "https://github.com/theboyWhoCriedWoolf/transition-manager.git"
   },
 
   "scripts": {
@@ -14,7 +14,7 @@
     "server": "browser-sync start --no-inject-changes --no-open --server 'bin' ",
     "watch": "npm run server & fsmonitor -s '+*.js' !node_modules !lib/** !bin/** npm run build:all",
     "build:all": "npm run build & npm run build:dev",
-    "test": "jshint esnext=true ./src/**/*.js",
+    "test": "jshint  ./src/**/*.js & npm run build",
     "build:dev": "browserify -d -e ./test/test.js -t [ babelify --blacklist regenerator ] -t reactify  -o ./bin/test.js | browser-sync reload --files='*.js' ",
     "build": "browserify -d -e ./src/index.js -t [ babelify --blacklist regenerator ] -o ./bin/transitionManager.js",
     "build:prod": "npm run build && uglifyjs ./bin/transitionManager.js -o ./bin/transitionManager.js"
@@ -33,10 +33,10 @@
     "transitions",
     "animation"
   ],
-  "author": "tal.woolf  <tal.woolf1.@gmail.com> (http://github.com/theboyWhoCriedWoolf)",
+  "author": "tal.woolf  <tal.woolf1.@gmail.com> (https://github.com/theboyWhoCriedWoolf)",
   "license": "MIT",
-  "homepage": "https://github.com/talwoolf/transition-manager/README.md",
-  "bugs": "https://github.com/talwoolf/transition-manager/issues",
+  "homepage": "https://github.com/theboyWhoCriedWoolf/transition-manager/README.md",
+  "bugs": "https://github.com/theboyWhoCriedWoolf/transition-manager/issues",
 
   "dependencies": {
     "signals": "^1.0.0",

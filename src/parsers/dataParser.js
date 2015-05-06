@@ -84,7 +84,7 @@ const AppDataParser = {};
 	 */
 	AppDataParser.parseData = function( data )
 	{
-		if( !data ){ throw new Error('*Data Object is undefined!'); return false; }
+		if( !data ){ throw new Error('*Data Object is undefined!'); }
 
 		let config 		= [],
 			viewData	= {},

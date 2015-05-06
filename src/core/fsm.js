@@ -112,7 +112,7 @@ const FSM = mixin({ name : 'StateMachine' }, logger );
 	 */
 	FSM.getHistory = function() {
 		return _history;
-	}
+	};
 
 	/**
 	 * DO ACTION
