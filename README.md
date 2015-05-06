@@ -1,6 +1,6 @@
 # Transition Manager
 
-[![build status](https://secure.travis-ci.org/theboyWhoCriedWoolf/transition-manager.png)](http://travis-ci.org/theboyWhoCriedWoolf/transition-manager)
+[![build status](https://secure.travis-ci.org/theboyWhoCriedWoolf/transition-manager.svg?style=flat-square)](http://travis-ci.org/theboyWhoCriedWoolf/transition-manager)
 
 **Transition-Manager** to easily transition visual elements within your application based on your application state.
 
