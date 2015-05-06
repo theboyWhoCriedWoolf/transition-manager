@@ -1,7 +1,7 @@
 
 dist
 ./dist
-bin
+bin/*
 lib
 
 .DS_Store
