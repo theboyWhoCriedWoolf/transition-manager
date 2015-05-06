@@ -1,6 +1,6 @@
 # Transition Manager Overview
  
-- [Advanced Config](advanced-config)
+- [Advanced Config](#advanced-config)
 - [Custom View Manager](#custom-view-manager)
 - [Preparing Your Views](#preparing-your-views)
 - [Reusable Transition Modules](#reusable-transition-modules)
