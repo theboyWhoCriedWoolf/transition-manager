@@ -9,6 +9,7 @@
   },
 
   "scripts": {
+    "before_script" : "mkdir bin",
     "prepublish": "npm run compile",
     "compile": "babel --ignore [regex] --blacklist regenerator -d lib/ src/",
     "server": "browser-sync start --no-inject-changes --no-open --server 'bin' ",
