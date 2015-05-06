@@ -17,7 +17,7 @@ npm install transition-manager --save-dev
 ```
 
 ### Basic Setup
-------------
+--
 ##### config.js
 
 ```js
@@ -131,6 +131,7 @@ Public Methods
 
 Events
 --------
+[Signals](https://github.com/millermedeiros/js-signals) are use for all communication within the library. To listen for an event you can simple write:``` transitionManager.onStateChanged.add( foo(){} ); ```
 - **onStateChanged** - triggered when a state is changed
 - **onTransitionStarted** - triggered when a transition module has started
 - **onAllTransitionStarted** - triggered when all transitions have started for that Action
