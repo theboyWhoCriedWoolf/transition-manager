@@ -16,8 +16,7 @@
     "build:all": "npm run build & npm run build:dev",
     "test": "npm run build",
     "build:dev": "browserify -d -e ./test/test.js -t [ babelify --blacklist regenerator ] -t reactify  -o ./bin/test.js | browser-sync reload --files='*.js' ",
-    "build": "./node_modules/browserify/bin/cmd.js -d -e ./src/index.js -t [ babelify --blacklist regenerator ] -o ./bin/transitionManager.js",
-    "build:prod": "npm run build && uglifyjs ./bin/transitionManager.js -o ./bin/transitionManager.js"
+    "build": "./node_modules/browserify/bin/cmd.js -d -e ./src/index.js -t [ babelify --blacklist regenerator ] -o ./bin/transitionManager.js"
   },
   "keywords": [
     "fsm-transitions",
