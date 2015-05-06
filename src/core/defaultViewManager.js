@@ -1,6 +1,6 @@
 
 import mixin 	from '../utils/mixin';
-import Logger 	from '../common/Logger';
+import Logger 	from '../common/logger';
 
 
 const defaultViewManager = mixin( { name : 'DefaultViewManager' }, Logger );
