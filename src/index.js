@@ -7,7 +7,15 @@ import Logger 		from './common/logger';
 
 import mixin 		from './utils/mixin';
 import pick		  	from './utils/pick';
-import dispatcher 	from './common/dispatcher';
+
+/* import signals */
+import {
+	stateChanged,
+	transitionStarted,
+	transitionComplete,
+	allTransitionsStarted,
+	allTransitionCompleted
+} 	from './common/dispatcher';
 
 
 /* fsm config pluck keys */
@@ -71,7 +79,7 @@ var TransitionManager = {};
 
 		Log.initLogger( config.debug );
 		Log.log( 'initiated' );
-		
+
 	}	
 
 	/**
@@ -106,13 +114,12 @@ var TransitionManager = {};
 	  * - tc transition started
 	  * - tc allTransitionStarted
 	  */
-	 Object.defineProperty( TransitionManager, 'onStateChanged', { get : function() { return dispatcher.stateChanged; } });
-	 Object.defineProperty( TransitionManager, 'onTransitionStarted', { get : function() { return dispatcher.transitionStarted; } });
-	 Object.defineProperty( TransitionManager, 'onAllTransitionStarted', { get : function() { return dispatcher.transitionsStarted; } });
-	 Object.defineProperty( TransitionManager, 'onAllTransitionCompleted', { get : function() { return dispatcher.allTransitionCompleted; } });
-	 Object.defineProperty( TransitionManager, 'transitionComplete', { get : function() { return dispatcher.transitionComplete; } });
+	 Object.defineProperty( TransitionManager, 'onStateChanged', { get : function() { return stateChanged; } });
+	 Object.defineProperty( TransitionManager, 'onTransitionStarted', { get : function() { return transitionStarted; } });
+	 Object.defineProperty( TransitionManager, 'onAllTransitionStarted', { get : function() { return transitionsStarted; } });
+	 Object.defineProperty( TransitionManager, 'onAllTransitionCompleted', { get : function() { return allTransitionCompleted; } });
+	 Object.defineProperty( TransitionManager, 'onTransitionComplete', { get : function() { return transitionComplete; } });
 
 })();
 
 export default TransitionManager;
-module.exports = { 'boom' : 'test' };

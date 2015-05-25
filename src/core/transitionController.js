@@ -63,7 +63,7 @@ const TransitionController = mixin({ name : 'TransitionController' } , logger);
 
 			transitionStarted.dispatch( transitionObj );
 			TransitionController.log( transitionObj.transitionType +' -- started');
-			transitionModule.animate( views, deferred, currentViewRef, nextViewRef );
+			transitionModule.animate( views, transitionObj.data, deferred, currentViewRef, nextViewRef );
 			
 			return deferred.promise;
 		}

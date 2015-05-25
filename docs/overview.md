@@ -196,8 +196,8 @@ export default {
 --
 Each Transition module gets passed in a ```views``` object. This object allows you to reference views by the ID's you defined in the config.
 
-To help create reusable transition modules, the **transition-manager** also finds and assigns the correct instances to the ```currentView``` and ```nextView```.
-This allows you to reuse transitions only specifying the ```currentView``` and ```nextView``` views.
+To help create reusable transition modules, the **transition-manager** also finds and assigns the correct instances to the ```currentView``` and ```nextView``` references.
+This allows you to reuse transitions by referring to the view instances required using the ```currentView``` and ```nextView``` references.
 ####Example fooTransition.js
 ```js
 import gsap from 'gsap';
