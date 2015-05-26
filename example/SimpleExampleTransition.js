@@ -24,13 +24,17 @@ export default {
 	 */
 	animate( views, data, promise, currentViewRef, nextViewRef ) {
 
-		let config = this.animConfig,
-			tl 	   = new TimelineLite({ onComplete : ()=> { promise.resolve() } });
+		let config 		= this.animConfig,
+			onComplete  = () => {
+				promise.resolve();
+			},
+			tl 	= new TimelineLite( { onComplete : onComplete } )
+
 
 		/* use gsap timeline */
 		tl.insertMultiple([
-			TweenLite.to( views.currentView, 1, { x : config.outX, y : config.outY, ease : Cubic.easeOut, delay : 0.01 } ),
-			TweenLite.to( views.nextView, 0.6, { x : '0%', y : '0%', ease : Cubic.easeOut } )
+			TweenLite.to( views.currentView, 2, { x : config.outX, y : config.outY, ease : Quint.easeOut, delay : 1, force3D : true } ),
+			TweenLite.to( views.nextView, 2, { x : '0%', y : '0%', ease : Quint.easeInOut, force3D : true } )
 		]);
 
 	},

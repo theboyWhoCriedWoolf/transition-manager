@@ -8,7 +8,9 @@ It is completely framework independant, giving you the ability to implement it i
 
 At its core, the library uses a simple state machine to dictate its transitions. When a State changes, the Transition-Manager checks for a valid transition, fetches and prepares the associated views, then assigns them to the correct transition, providing everything you need to animate to the next state.
 
-See more in the [overview guide](https://github.com/theboyWhoCriedWoolf/transition-manager/blob/master/docs/overview.md).
+See more in the [overview guide](https://github.com/theboyWhoCriedWoolf/transition-manager/blob/master/docs/overview.md) or check out this [example](https://github.com/theboyWhoCriedWoolf/transition-manager/blob/master/docs/example.md).
+
+
 
 ### Installation
 

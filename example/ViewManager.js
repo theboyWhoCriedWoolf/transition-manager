@@ -5,7 +5,7 @@ import sectionData 			from './sectionData';
 import randomCol 			from './randomCol';
 
 /* instantiate viewManager */
-const reactViewManager = {};
+const viewManager = {};
 
 
 /* consts */
@@ -22,7 +22,7 @@ let currentSection  = -1,
  * initialise the view manager
  * loading the first element into the dom
  */
-reactViewManager.init = function() {
+viewManager.init = function() {
 	let data = fetchSectionData();
 	let view = fetchView( data, currentSection );
 	tmpCache[ currentSection ] = view;
@@ -35,7 +35,7 @@ reactViewManager.init = function() {
  * @param  {string} viewRef as described in the config
  * @return {Node} dom element
  */
-reactViewManager.fetchView = function( viewRef ) {
+viewManager.fetchView = function( viewRef ) {
 	
 	/**
 	 * ignore the viewRef as we dynamically create and append the views
@@ -62,7 +62,8 @@ reactViewManager.fetchView = function( viewRef ) {
  * once it has finished transitioning
  *  - remove from cache also
  */
-reactViewManager.removeSection = function( sectionEl ) {
+viewManager.removeSection = function( sectionEl ) {
+	
 	container.removeChild( sectionEl );
 	tmpCache[ sectionEl.dataset.id ] = null;
 }
@@ -96,5 +97,5 @@ function fetchSectionData() {
 }
 
 
-export default reactViewManager;
+export default viewManager;
 

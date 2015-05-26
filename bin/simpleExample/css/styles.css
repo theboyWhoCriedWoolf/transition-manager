@@ -1,4 +1,14 @@
 
+@font-face {
+  font-family: 'Impact';
+  src: url('../fonts/Impact.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/Impact.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/Impact.woff') format('woff'), /* Pretty Modern Browsers */
+       url('../fonts/Impact.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/Impact.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+
 html,
 body,
 #content,
@@ -12,6 +22,8 @@ body,
 }
 
 h1 {
+	font-family: 'Impact';
+	letter-spacing: 5px;
 	width  		: 100%;
 	position 	: absolute;
 	font-size 	: 6em;
@@ -19,7 +31,7 @@ h1 {
 	transform : translateY(-50%);
 	-webkit-transform : translateY(-50%);
 	margin : 0;
-	color: orange;
+	color: white;
 }
 
 .section {
