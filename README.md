@@ -138,5 +138,5 @@ Events
 - **onTransitionStarted** - triggered when a transition module has started
 - **onAllTransitionStarted** - triggered when all transitions have started for that Action
 - **onAllTransitionCompleted** - triggered when all transitions have completed
-- **transitionComplete** - triggered when a single module transition has completed. Receives the transition object as a parameter
+- **onTransitionComplete** - triggered when a single module transition has completed. Receives the transition object as a parameter
 
