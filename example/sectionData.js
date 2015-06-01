@@ -3,7 +3,7 @@ export default [
 	    "title" : "Stop pretending" ,
 	    "backgroundColor" : "#00ffff" ,
 	    "id" : 0,
-	    "backgroundImage" : "/images/2.gif"
+	    "backgroundImage" : "images/2.gif"
 	} 
 	 ,
 	{
@@ -17,7 +17,7 @@ export default [
 	    "title" : "Let's talk seriously" ,
 	    "backgroundColor" : "#000099" ,
 	     "id" : 2,
-	    "backgroundImage" : "/images/4.gif"
+	    "backgroundImage" : "images/4.gif"
 	}
 	, 
 	{
@@ -32,13 +32,13 @@ export default [
 	    "title" : "Apple sucks" ,
 	    "backgroundColor" : "#000099" ,
 	     "id" : 4,
-	    "backgroundImage" : "/images/6.gif"
+	    "backgroundImage" : "images/6.gif"
 	} ,
 	{
 	    "title" : "Macbook pro sucks" ,
 	    "backgroundColor" : "#000099" ,
 	     "id" : 5,
-	    "backgroundImage" : "/images/3.gif"
+	    "backgroundImage" : "images/3.gif"
 	},
 	{
 	    "title" : "I love Lenovo design" ,
@@ -57,20 +57,20 @@ export default [
 	    "title" : "Organic coffee sucks" ,
 	    "backgroundColor" : "#000099" ,
 	     "id" : 8,
-	    "backgroundImage" : "/images/6.gif"
+	    "backgroundImage" : "images/6.gif"
 	}
 	, 
 	{
 	    "title" : "Electronic music is shit" ,
 	    "backgroundColor" : "#000099" ,
 	     "id" : 9,
-	    "backgroundImage" : "/images/5.gif"
+	    "backgroundImage" : "images/5.gif"
 	}
 	, 
 	{
 	    "title" : "Empty your mind" ,
 	    "backgroundColor" : "#000099" ,
 	     "id" : 10,
-	    "backgroundImage" : "/images/7.gif"
+	    "backgroundImage" : "images/7.gif"
 	}
 ]

@@ -74,12 +74,3 @@ function clickRegion( e ) {
 }
 
 
-
-
-
-
-
-
-
-
-

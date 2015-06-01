@@ -77,7 +77,9 @@ viewManager.removeSection = function( sectionEl ) {
  * @return {Node} 
  */
 function fetchView( data, id ) {
+
 	data.backgroundColor = randomCol();
+	data.fontColour		 = data.backgroundImage? '' : getContrastYIQ( data.backgroundColor );
 
 	let wrapper 		= document.createElement('div');
 	wrapper.className 	= 'section hidden';
@@ -87,6 +89,19 @@ function fetchView( data, id ) {
 	container.appendChild( wrapper );
 	return wrapper;
 }
+
+/*
+ * change text colour based on the background colour
+ */
+function getContrastYIQ(hexcolor){
+	hexcolor = hexcolor.substr(1,6);
+    var r = parseInt(hexcolor.substr(0,2),16);
+    var g = parseInt(hexcolor.substr(2,2),16);
+    var b = parseInt(hexcolor.substr(4,2),16);
+    var yiq = ((r*299)+(g*587)+(b*114))/1000;
+    return (yiq >= 128) ? '#000000' : '#ffffff';
+}
+
 /**
  * return data from array
  * keep looping available data objects

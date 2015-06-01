@@ -1,6 +1,5 @@
 module.exports = {
 
-
 	'STATE_ONE' : {
 		view 			: 'one',
 		initial 		: true,
@@ -22,7 +21,5 @@ module.exports = {
 				transitionType	: 'SimpleExampleTransition',
 			},
 		}
-	},
-	
-		
+	}
 }
