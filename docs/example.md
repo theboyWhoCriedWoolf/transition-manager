@@ -1,6 +1,6 @@
 # Simple Example
 
-The [example](https://cdn.rawgit.com/theboyWhoCriedWoolf/transition-manager/master/bin/simpleExample/index.html) provides you with a basic idea of how to setup and use the **Transition-Manager**. This is a very basic setup and is just to get you started.
+The [example](http://theboywhocriedwoolf.github.io/transition-manager/) provides you with a basic idea of how to setup and use the **Transition-Manager**. This is a very basic setup and is just to get you started.
 
 ##Running The Example
 Download the repo and cd to the project location, then run ```npm run watch```. This will start up the server at ```localhost:3000```.
