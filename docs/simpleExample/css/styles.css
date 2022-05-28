@@ -1,0 +1,52 @@
+
+@font-face {
+  font-family: 'Impact';
+  src: url('../fonts/Impact.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/Impact.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/Impact.woff') format('woff'), /* Pretty Modern Browsers */
+       url('../fonts/Impact.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/Impact.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+
+html,
+body,
+#content,
+.section,
+.section__content {
+	width  		: 100%;
+	height 		: 100%;
+	padding		: 0;
+	margin 		: 0;
+	text-align 	: center;
+}
+
+h1 {
+	font-family: 'Impact';
+	letter-spacing: 5px;
+	width  		: 100%;
+	position 	: absolute;
+	font-size 	: 6em;
+	top 		: 50%;
+	transform : translateY(-50%);
+	-webkit-transform : translateY(-50%);
+	margin : 0;
+	color: white;
+}
+
+.section {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.hidden {
+	display: none;
+}
+
+.bg {
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
